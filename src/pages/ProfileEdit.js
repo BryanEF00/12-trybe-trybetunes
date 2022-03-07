@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Header from '../components/Header';
 
 class ProfileEdit extends Component {
   render() {
@@ -6,6 +7,7 @@ class ProfileEdit extends Component {
       <div
         data-testid="page-profile-edit"
       >
+        <Header />
         ProfileEdit
       </div>
     );
