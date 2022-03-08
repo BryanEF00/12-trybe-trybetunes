@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 class AlbumCard extends Component {
   render() {
     const { albums } = this.props;
+
     return (
       <div>
         {albums.map((album) => {
@@ -18,7 +19,6 @@ class AlbumCard extends Component {
               <img src={ artworkUrl100 } alt={ collectionName } />
               <h1>{collectionName}</h1>
               <h3>{artistName}</h3>
-
             </Link>
           );
         })}
