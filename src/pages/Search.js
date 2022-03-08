@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import AlbumCard from '../components/AlbumCard';
 import Header from '../components/Header';
+import Loading from '../components/Loading';
+
+import searchAlbumsAPI from '../services/searchAlbumsAPI';
 
 class Search extends Component {
   constructor() {
@@ -7,7 +11,11 @@ class Search extends Component {
 
     this.state = {
       searchArtist: '',
+      artistName: '',
       btnDisabled: true,
+      loading: false,
+      results: false,
+      albums: '',
     };
   }
 
@@ -19,6 +27,44 @@ class Search extends Component {
       btnDisabled: value.length < minLength,
     });
   };
+
+  handleSearch = (event) => {
+    event.preventDefault();
+
+    const { searchArtist } = this.state;
+
+    this.setState({
+      artistName: searchArtist,
+      loading: true,
+
+    }, async () => {
+      const search = await searchAlbumsAPI(searchArtist);
+
+      this.setState({
+        searchArtist: '',
+        loading: false,
+        albums: search,
+        results: true,
+      });
+    });
+  }
+
+  handleDisplay = () => {
+    const { loading, results, artistName, albums } = this.state;
+
+    if (loading) return (<Loading />);
+    if (results) {
+      return (
+        <div>
+          Resultado de álbuns de:
+          {` ${artistName}`}
+          {albums.length === 0
+            ? (<div>Nenhum álbum foi encontrado</div>)
+            : <AlbumCard albums={ albums } />}
+        </div>
+      );
+    }
+  }
 
   render() {
     const { searchArtist, btnDisabled } = this.state;
@@ -46,10 +92,14 @@ class Search extends Component {
             data-testid="search-artist-button"
             type="submit"
             disabled={ btnDisabled }
+            onClick={ this.handleSearch }
           >
             Pesquisar
           </button>
         </form>
+
+        {this.handleDisplay()}
+
       </div>
     );
   }
