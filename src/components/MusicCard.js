@@ -70,7 +70,7 @@ MusicCard.propTypes = {
   handleLoading: PropTypes.func.isRequired,
   handleAddFavoriteList: PropTypes.func.isRequired,
   handleRemoveFavoriteList: PropTypes.func.isRequired,
-  favoriteSongsList: PropTypes.arrayOf(PropTypes.number).isRequired,
+  favoriteSongsList: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default MusicCard;
