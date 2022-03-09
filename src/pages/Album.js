@@ -6,6 +6,7 @@ import Loading from '../components/Loading';
 import MusicCard from '../components/MusicCard';
 
 import getMusics from '../services/musicsAPI';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends Component {
   constructor() {
@@ -17,6 +18,7 @@ class Album extends Component {
       image: '',
       album: '',
       artist: '',
+      favorites: [],
     };
   }
 
@@ -24,6 +26,8 @@ class Album extends Component {
     const { match } = this.props;
     const { id } = match.params;
     const song = await getMusics(id);
+    const favorited = await getFavoriteSongs();
+    const favoritedId = favorited.map((track) => track.trackId);
 
     const { artworkUrl100, collectionName, artistName } = song[0];
 
@@ -33,7 +37,7 @@ class Album extends Component {
       image: artworkUrl100,
       album: collectionName,
       artist: artistName,
-      favorites: [],
+      favorites: favoritedId,
     });
   }
 
