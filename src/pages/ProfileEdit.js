@@ -87,7 +87,7 @@ class ProfileEdit extends Component {
 
     return (
       <div
-        data-testid="page-profile"
+        data-testid="page-profile-edit"
       >
         <Header />
         {loading
