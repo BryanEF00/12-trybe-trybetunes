@@ -33,11 +33,29 @@ class Album extends Component {
       image: artworkUrl100,
       album: collectionName,
       artist: artistName,
+      favorites: [],
     });
   }
 
+  handleLoading = (boolean) => {
+    this.setState({
+      loading: boolean,
+    });
+  };
+
+  handleFavoriteList = (trackId) => {
+    const { favorites } = this.state;
+
+    if (!favorites.includes(trackId)) {
+      this.setState((prevState) => ({
+        favorites: [...prevState.favorites, trackId],
+      }));
+    }
+  }
+
   render() {
-    const { loading, playlist, image, album, artist } = this.state;
+    const { loading, playlist, image, album, artist, favorites } = this.state;
+
     return (
       <div
         data-testid="page-album"
@@ -53,7 +71,13 @@ class Album extends Component {
                 <h3 data-testid="artist-name">{artist}</h3>
               </div>
               {playlist.map((song, index) => (
-                index > 0 && <MusicCard track={ song } key={ song.trackId } />
+                index > 0 && <MusicCard
+                  track={ song }
+                  handleLoading={ this.handleLoading }
+                  handleFavoriteList={ this.handleFavoriteList }
+                  favoriteSongsList={ favorites }
+                  key={ song.trackId }
+                />
               ))}
             </div>
           )}

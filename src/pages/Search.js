@@ -84,6 +84,7 @@ class Search extends Component {
               name="searchArtist"
               id="search-artist"
               placeholder="Nome do Artista"
+              autoComplete="off"
               value={ searchArtist }
               onChange={ this.handleChange }
             />

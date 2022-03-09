@@ -62,6 +62,7 @@ class Login extends Component {
                   name="loginName"
                   id="login-name"
                   placeholder="Nome"
+                  autoComplete="off"
                   value={ loginName }
                   onChange={ this.handleChange }
                 />
