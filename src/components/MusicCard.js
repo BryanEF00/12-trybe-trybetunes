@@ -1,20 +1,39 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, removeSong } from '../services/favoriteSongsAPI';
 
 class MusicCard extends Component {
-  handleChangeFavorite = () => {
-    const { handleLoading, handleFavoriteList, track } = this.props;
+  handleChangeFavorite = (event) => {
+    const { handleAddFavoriteList, handleRemoveFavoriteList, track } = this.props;
+    const { checked } = event.target;
 
-    handleFavoriteList(track.trackId);
-    this.saveSong(track, handleLoading(false));
+    return checked
+      ? this.saveFavorite(handleAddFavoriteList, track)
+      : this.removeFavorite(handleRemoveFavoriteList, track);
   }
 
-  async saveSong() {
+  saveFavorite = (handleAddFavoriteList, track) => {
+    handleAddFavoriteList(track.trackId);
+    this.saveFavoriteSong(track);
+  }
+
+  removeFavorite = (handleRemoveFavoriteList, track) => {
+    handleRemoveFavoriteList(track.trackId);
+    this.removeFavoriteSong(track);
+  }
+
+  async saveFavoriteSong() {
     const { handleLoading, track } = this.props;
     handleLoading(true);
     await addSong(track);
+    handleLoading(false);
+  }
+
+  async removeFavoriteSong() {
+    const { handleLoading, track } = this.props;
+    handleLoading(true);
+    await removeSong(track);
     handleLoading(false);
   }
 
@@ -49,7 +68,8 @@ class MusicCard extends Component {
 MusicCard.propTypes = {
   track: PropTypes.objectOf(PropTypes.any).isRequired,
   handleLoading: PropTypes.func.isRequired,
-  handleFavoriteList: PropTypes.func.isRequired,
+  handleAddFavoriteList: PropTypes.func.isRequired,
+  handleRemoveFavoriteList: PropTypes.func.isRequired,
   favoriteSongsList: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 

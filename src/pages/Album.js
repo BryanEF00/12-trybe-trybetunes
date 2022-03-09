@@ -47,12 +47,22 @@ class Album extends Component {
     });
   };
 
-  handleFavoriteList = (trackId) => {
+  handleAddFavoriteList = (trackId) => {
     const { favorites } = this.state;
 
     if (!favorites.includes(trackId)) {
       this.setState((prevState) => ({
         favorites: [...prevState.favorites, trackId],
+      }));
+    }
+  }
+
+  handleRemoveFavoriteList = (trackId) => {
+    const { favorites } = this.state;
+
+    if (favorites.includes(trackId)) {
+      this.setState((prevState) => ({
+        favorites: [...prevState.favorites].filter((songs) => songs !== trackId),
       }));
     }
   }
@@ -78,7 +88,8 @@ class Album extends Component {
                 index > 0 && <MusicCard
                   track={ song }
                   handleLoading={ this.handleLoading }
-                  handleFavoriteList={ this.handleFavoriteList }
+                  handleAddFavoriteList={ this.handleAddFavoriteList }
+                  handleRemoveFavoriteList={ this.handleRemoveFavoriteList }
                   favoriteSongsList={ favorites }
                   key={ song.trackId }
                 />
