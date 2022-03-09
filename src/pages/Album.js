@@ -27,9 +27,9 @@ class Album extends Component {
     const { id } = match.params;
     const song = await getMusics(id);
     const favorited = await getFavoriteSongs();
-    const favoritedId = favorited.map((track) => track.trackId);
 
     const { artworkUrl100, collectionName, artistName } = song[0];
+    const favoritedId = favorited.map((track) => track.trackId);
 
     this.setState({
       loading: false,
