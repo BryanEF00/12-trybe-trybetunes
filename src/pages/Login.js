@@ -63,7 +63,13 @@ class Login extends Component {
             flex flex-col items-center
             ` }
           >
-            <img className="max-w-[90%] h-auto md:w-auto" src={ loginLogo } alt="logo" />
+            <img
+              className={ `
+                max-w-[90%] pr-6 h-auto md:w-auto
+            ` }
+              src={ loginLogo }
+              alt="logo"
+            />
             <form
               className={ `bg-white shadow-[0_4px_4px_rgba(0,0,0,0.25)]
                 w-[80%] h-[25%] rounded-xl mt-5 py-7

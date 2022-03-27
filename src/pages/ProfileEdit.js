@@ -113,6 +113,7 @@ class ProfileEdit extends Component {
                     type="text"
                     name="nameInput"
                     placeholder="Nome de usuario"
+                    maxLength={ 20 }
                     value={ nameInput }
                     onChange={ this.handleChange }
                   />

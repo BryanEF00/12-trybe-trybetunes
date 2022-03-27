@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@500&display=swap;700&display=swap');
+
+.navlink {
+  @apply w-full px-4 py-3
+}
+
+.activeNavlink {
+  @apply text-white bg-[#036B52]
+}
+
+.inactiveNavlink {
+  @apply text-green-500 bg-[#F0F2F5]
+}

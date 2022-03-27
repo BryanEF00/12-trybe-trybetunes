@@ -1,48 +1,130 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-
+import { FaUserCircle } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
 
-import Loading from './Loading';
+import headerLogo from '../images/headerLogo.png';
 
 class Header extends Component {
   constructor() {
     super();
 
     this.state = {
-      loading: true,
       userName: '',
     };
   }
 
   async componentDidMount() {
+    const getData = JSON.parse(localStorage.getItem('user'));
+    const { name } = getData;
+
+    if (name) {
+      this.setState({
+        userName: name,
+      });
+    }
+
     const userInfo = await getUser();
 
     this.setState({
-      loading: false,
       userName: userInfo.name,
     });
   }
 
   render() {
-    const { loading, userName } = this.state;
+    const { userName } = this.state;
 
     return (
-      <header
-        data-testid="header-component"
-      >
-        Header
-        {loading
-          ? <Loading />
-          : (
-            <div data-testid="header-user-name">{userName}</div>
-          )}
-        <nav>
-          <Link data-testid="link-to-search" to="/search">Pesquisa</Link>
-          <Link data-testid="link-to-favorites" to="/favorites">Favoritas</Link>
-          <Link data-testid="link-to-profile" to="/profile">Perfil</Link>
+      <>
+        <header
+          className={ `
+          bg-[#023031]
+            px-5 py-5
+            flex justify-between items-center
+        ` }
+          data-testid="header-component"
+        >
+          <img
+            className={ `
+              h-24 mt-[-2rem]
+        ` }
+            src={ headerLogo }
+            alt="logo"
+          />
+
+          <div
+            className={ `
+                bg-white
+                  w-[50%] max-h-14 px-1 py-1
+                  flex items-center justify-between rounded-full
+              ` }
+          >
+            <FaUserCircle
+              className={ `
+            text-[#2FC18C]
+              text-[2.75rem]
+              w-fit
+              ` }
+            />
+            <div
+              data-testid="header-user-name"
+              className={ `
+                  text-[#29313D]
+                    font-[epilogue] font-medium text-base text-center
+                    w-2/3 mx-auto
+                ` }
+            >
+              {userName}
+            </div>
+          </div>
+        </header>
+        <nav
+          className={ `
+            font-[Epilogue] text-lg text-center
+            space-x-0.5
+            flex justify-evenly 
+        ` }
+        >
+          <NavLink
+            className={ (isActive) => `
+            navlink
+            ${!isActive ? `
+              inactiveNavlink
+            ` : `
+              activeNavlink
+            `}
+            ` }
+            data-testid="link-to-search"
+            to="/search"
+          >
+            Pesquisa
+          </NavLink>
+          <NavLink
+            className={ (isActive) => `
+            navlink
+            ${!isActive ? `
+            inactiveNavlink
+            ` : `
+            activeNavlink
+            `}
+            ` }
+            data-testid="link-to-favorites"
+            to="/favorites"
+          >
+            Favoritas
+          </NavLink>
+          <NavLink
+            className={ (isActive) => `
+            navlink
+            ${!isActive ? 'inactiveNavlink' : 'activeNavlink'}
+            ` }
+            data-testid="link-to-profile"
+            to="/profile"
+          >
+            Perfil
+          </NavLink>
         </nav>
-      </header>
+      </>
     );
   }
 }
