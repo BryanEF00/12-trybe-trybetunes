@@ -55,7 +55,8 @@ class Header extends Component {
           <div
             className={ `
                 bg-white
-                  w-[50%] max-h-14 px-1 py-1
+                  w-[45%] max-h-14 px-1 py-1
+                  md:w-[30%]
                   flex items-center justify-between rounded-full
               ` }
           >
@@ -71,6 +72,7 @@ class Header extends Component {
               className={ `
                   text-[#29313D]
                     font-[epilogue] font-medium text-base text-center
+                    md:text-xl
                     w-2/3 mx-auto
                 ` }
             >
@@ -81,24 +83,10 @@ class Header extends Component {
         <nav
           className={ `
             font-[Epilogue] text-lg text-center
-            space-x-0.5
+            space-x-1
             flex justify-evenly 
         ` }
         >
-          <NavLink
-            className={ (isActive) => `
-            navlink
-            ${!isActive ? `
-              inactiveNavlink
-            ` : `
-              activeNavlink
-            `}
-            ` }
-            data-testid="link-to-search"
-            to="/search"
-          >
-            Pesquisa
-          </NavLink>
           <NavLink
             className={ (isActive) => `
             navlink
@@ -113,6 +101,21 @@ class Header extends Component {
           >
             Favoritas
           </NavLink>
+          <NavLink
+            className={ (isActive) => `
+            navlink
+            ${!isActive ? `
+              inactiveNavlink
+            ` : `
+              activeNavlink
+            `}
+            ` }
+            data-testid="link-to-search"
+            to="/search"
+          >
+            Pesquisa
+          </NavLink>
+
           <NavLink
             className={ (isActive) => `
             navlink
