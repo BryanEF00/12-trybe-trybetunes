@@ -50,31 +50,35 @@ class Login extends Component {
 
     return (
       <div
-        className={ `font-[verdana] font-normal text-sm leading-5
-          mt-28
-          flex flex-col` }
+        className={ `
+          font-[verdana] font-normal text-sm leading-5
+          h-screen
+          flex flex-col justify-center
+         ` }
         data-testid="page-login"
       >
         {loading ? (
           <Loading />
         ) : (
           <div
-            className={ `h-full
-            flex flex-col items-center
+            className={ `
+              pb-32
+              flex flex-col items-center
             ` }
           >
             <img
               className={ `
-                max-w-[90%] pr-6 h-auto md:w-auto
+                pr-6
             ` }
               src={ loginLogo }
               alt="logo"
             />
             <form
-              className={ `bg-white shadow-[0_4px_4px_rgba(0,0,0,0.25)]
-                w-[80%] h-[25%] rounded-xl mt-5 py-7
-                md:w-[60%]
-                xl:w-[35%]
+              className={ `
+              bg-white shadow-[0_4px_4px_rgba(0,0,0,0.25)]
+                w-[80%] rounded-xl mt-5 py-7
+                md:w-[45%]
+                xl:w-[30%]
                 2xl:w-[25%]
                 flex flex-col items-center justify-center` }
             >
@@ -85,7 +89,7 @@ class Login extends Component {
               >
                 <input
                   className={ `bg-white border border-[#E1E5EB]
-                  w-[80%]  h-10 py-3 px-4 mb-5
+                  w-[80%] h-10 py-3 px-4 mb-5
                   md:w-2/3 
                   ` }
                   data-testid="login-name-input"
